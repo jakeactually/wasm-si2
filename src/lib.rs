@@ -34,20 +34,20 @@ pub fn tick() {
 }
 
 pub fn fetch(s: &str) -> Vec<u8> {
-    let mut out: Vec<u8> = vec![];
-    let mut ready = false;
+    static mut out: Vec<u8> = vec![];
+    static mut ready: bool = false;
 
     let f = Closure::wrap(Box::new(move |v| {
-        //out = v;
-        ready = true;
+        unsafe {out = v;
+        ready = true; }
     }) as Box<dyn FnMut(Vec<u8>)>);
 
     load(s, &f);
     f.forget();
 
-    while !ready {
+    while !unsafe{ready} {
 
     }
 
-    out.clone()
+    unsafe{out.clone()}
 }
