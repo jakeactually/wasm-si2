@@ -1,12 +1,12 @@
 mod utils;
 
-mod load;
+//mod load;
+mod objects;
 mod types;
+mod util;
 
 use wasm_bindgen::prelude::*;
 
-// When the `wee_alloc` feature is enabled, use `wee_alloc` as the global
-// allocator.
 #[cfg(feature = "wee_alloc")]
 #[global_allocator]
 static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
@@ -19,15 +19,35 @@ pub fn screen() -> *const [u8; 10] {
 }
 
 #[wasm_bindgen]
+extern {
+    fn alert(s: &str);
+}
+
+#[wasm_bindgen]
+extern {
+    fn load(s: &str, f: &Closure<dyn FnMut(Vec<u8>)>);
+}
+
+#[wasm_bindgen]
 pub fn tick() {
-    
-    self.enemies = self.load_level(self.level)?;
+    alert(format!("{:?}", fetch("/data/enemies/0.dat")).as_str());
+}
 
-    let f = Closure::wrap(Box::new(|v| {
-        alert(format!("{:?}", v).as_str());
-    }) as Box<dyn Fn(Vec<u8>)>);
+pub fn fetch(s: &str) -> Vec<u8> {
+    let mut out: Vec<u8> = vec![];
+    let mut ready = false;
 
-    load("/data/enemies/0.dat", &f);
+    let f = Closure::wrap(Box::new(move |v| {
+        //out = v;
+        ready = true;
+    }) as Box<dyn FnMut(Vec<u8>)>);
 
+    load(s, &f);
     f.forget();
+
+    while !ready {
+
+    }
+
+    out.clone()
 }
