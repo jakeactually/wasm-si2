@@ -20,31 +20,31 @@ impl Game {
             let amount = bytes[0];
             let mut result = vec![];
     
-            for i in 0..amount as u32 {
+            util::vec_map((0..amount).collect(), |i| {
                 let offset = i * 5;
                 let view = bytes[(offset as usize + 1)..(offset as usize + 6)].to_vec();
                 let enemy_id = view[3];
-                let enemy_data = self.load_enemy(enemy_id)?;
-    
-                let enemy = Enemy {
-                    id: enemy_id,
-                    position: Vec2 {
-                        x: view[0] as i32 * 256 + view[1] as i32,
-                        y: view[2] as i32
-                    },
-                    dir: (view[4] as i32) - 1,
-                    data: enemy_data,
-                    explosion_frames: 2,
-                    anim_state: 0
-                };
-    
-                result.push(enemy);
-            }
-    
-            f(result)
-        });
-    
+
+                self.load_enemy(enemy_id, &|enemy_data| {
+                    let enemy = Enemy {
+                        id: enemy_id,
+                        position: Vec2 {
+                            x: view[0] as i32 * 256 + view[1] as i32,
+                            y: view[2] as i32
+                        },
+                        dir: (view[4] as i32) - 1,
+                        data: enemy_data,
+                        explosion_frames: 2,
+                        anim_state: 0
+                    };
         
+                    result.push(enemy);
+                });
+            }, ||{})
+
+    
+            f(result);
+        });        
     }
     
     pub fn load_enemy(&mut self, id: u8, f: &'static dyn Fn(EnemyData)) {
@@ -67,7 +67,7 @@ impl Game {
                 moves_between: Vec2 { x: bytes[8] as i32, y: bytes[9] as i32 }
             };
     
-            for _ in enemy.model_id..enemy.anim_count {
+            /*util::vec_map((enemy.model_id..enemy.anim_count).collect(), |i| {
                 let obj = self.load_object(enemy.model_id)?;
     
                 if enemy.size.x < obj.size.x {
@@ -77,7 +77,9 @@ impl Game {
                 if enemy.size.y < obj.size.y {
                     enemy.size.y = obj.size.y;
                 }
-            }
+            }, || {
+
+            });*/
     
             self.enemies_cache.insert(id, enemy.clone());
             Ok(enemy)
