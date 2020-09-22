@@ -5,6 +5,7 @@ mod objects;
 mod types;
 mod util;
 
+use load::fetch;
 use wasm_bindgen::prelude::*;
 
 #[cfg(feature = "wee_alloc")]
@@ -25,7 +26,5 @@ extern {
 
 #[wasm_bindgen]
 pub fn tick() {
-    fetch("/data/enemies/0.dat", &|v| {
-        alert(format!("{:?}", v).as_str());
-    });
+        alert(format!("{:?}", fetch("/data/enemies/0.dat")).as_str());
 }
