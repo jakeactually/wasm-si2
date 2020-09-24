@@ -1,6 +1,7 @@
 use crate::types::*;
 use crate::objects::{get_static_objects, get_weapons, scenery_data};
 
+use crate::load;
 //use rand::Rng;
 use std::collections::{HashMap};
 use wasm_bindgen::prelude::*;
@@ -51,8 +52,10 @@ impl Game {
     }
 
     pub fn update(&mut self) {
-        let a = self.fetch("/data/enemies/0.dat");
-        alert(format!("{:?}", a).as_str());
+        alert(format!("{:?}", 6).as_str());
+        let promise = load::fetch("/data/enemies/0.dat");
+        let result = wasm_bindgen_futures::JsFuture::from(promise);
+        alert(format!("{:?}", result).as_str());
         return;
 
         /*self.clear();

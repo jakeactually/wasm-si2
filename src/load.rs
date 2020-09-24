@@ -2,25 +2,15 @@ use crate::types::{Game, Enemy, Object, EnemyData, Vec2};
 use crate::util;
 use crate::load;
 
+use js_sys::Promise;
+use std::pin::Pin;
+use std::task::Poll;
+use std::task::Context;
 use wasm_bindgen::prelude::*;
 
 #[wasm_bindgen]
 extern {
-    fn load(s: &str);
-}
-
-impl Game {
-    pub fn fetch(&mut self, s: &str) -> Vec<u8> {
-        self.ready = false;
-
-        load(s);
-
-        //while !self.ready {
-
-        //}
-
-        self.data.clone()
-    }
+    pub fn fetch (s: &str) -> Promise;
 }
 
 impl Game {
