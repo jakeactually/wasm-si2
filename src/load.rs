@@ -1,34 +1,31 @@
 use crate::types::{Game, Enemy, Object, EnemyData, Vec2};
 use crate::util;
+use crate::load;
 
 use wasm_bindgen::prelude::*;
 
 #[wasm_bindgen]
 extern {
-    fn load(s: &str, f: &Closure<dyn FnMut(Vec<u8>)>);
-}
-
-pub fn fetch(s: &str) -> Vec<u8> {
-    let mut out: Vec<u8> = vec![];
-
-    let closure = Closure::wrap(Box::new(|v| {
-        out = v;
-    }) as Box<dyn FnMut(Vec<u8>)>);
-
-    load(s, &closure);
-
-    closure.forget();
-
-    //while out.len() == 0 {
-
-    //}
-
-    out
+    fn load(s: &str);
 }
 
 impl Game {
-    pub fn load_level(&mut self, id: u8) -> Vec<Enemy> {
-        let bytes = fetch(format!("data/levels/{}.dat", id).as_str());
+    pub fn fetch(&mut self, s: &str) -> Vec<u8> {
+        self.ready = false;
+
+        load(s);
+
+        //while !self.ready {
+
+        //}
+
+        self.data.clone()
+    }
+}
+
+impl Game {
+    /*pub fn load_level<'a>(&mut self, id: u8) -> Vec<Enemy> {
+        let bytes = self.fetch(format!("data/levels/{}.dat", id).as_str());
 
         let amount = bytes[0];
         let mut result = vec![];
@@ -54,7 +51,7 @@ impl Game {
             result.push(enemy);
         }
 
-        result 
+        result
     }
 
     pub fn load_enemy<'a>(&mut self, id: u8) -> EnemyData {
@@ -62,7 +59,7 @@ impl Game {
             return self.enemies_cache.get(&id).unwrap().clone();
         }
 
-        let bytes = fetch(format!("data/enemies/{}.dat", id).as_str()); 
+        let bytes = self.fetch(format!("data/enemies/{}.dat", id).as_str());
 
         let mut enemy = EnemyData {
             model_id: bytes[0],
@@ -92,13 +89,13 @@ impl Game {
         self.enemies_cache.insert(id, enemy.clone());
         enemy
     }
-
+    
     pub fn load_object<'a>(&mut self, id: u8) -> Object {
         if self.objects_cache.contains_key(&id) {
             return self.objects_cache.get(&id).unwrap().clone();
         }
 
-        let bytes = fetch(format!("data/objects/{}.dat", id).as_str());
+        let bytes = self.fetch(format!("data/objects/{}.dat", id).as_str());
 
         let obj = Object {
             size: Vec2 {
@@ -110,6 +107,5 @@ impl Game {
 
         self.objects_cache.insert(id, obj.clone());
         obj
-    }
-    
+    }*/
 }
