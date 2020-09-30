@@ -12,6 +12,8 @@ extern {
 #[wasm_bindgen]
 impl Game {
     pub fn new() -> Game {
+        crate::utils::set_panic_hook();
+
         Game {
             data :vec![],
             ready: false,
@@ -51,8 +53,6 @@ impl Game {
     }
 
     pub fn update(&mut self, _ctx: &Context) {
-        crate::utils::set_panic_hook();
-
         self.clear();
 
         if self.game_over {
@@ -139,6 +139,14 @@ impl Game {
         if self.player.lives == 0 {
             self.game_over = true;
         }
+    }
+
+    pub fn do_render(&mut self) {
+        self.render();
+    }
+
+    pub fn screen_pointer(&mut self) -> *mut [[u8; WIDTH as usize]; HEIGHT as usize] {
+        &mut self.screen
     }
 }
 

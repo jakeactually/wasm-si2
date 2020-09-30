@@ -1,20 +1,7 @@
-use crate::types::{WIDTH, HEIGHT, Game, Object, Context};
+use crate::types::{WIDTH, HEIGHT, Game, Object};
 use crate::objects::Graphics;
 
 impl Game {
-    pub fn paint(&mut self, ctx: &mut Context) {
-        for (y, i) in self.screen.iter().enumerate() {
-            for (x, j) in i.iter().enumerate() {
-                if *j == 1 {
-                    //let rect = graphics::Rect::new((x * 10) as f32, (y * 10) as f32, 10.0, 10.0);
-                    //let color = if self.inverted { graphics::WHITE } else { graphics::BLACK };
-                    //let r1 = graphics::Mesh::new_rectangle(ctx, graphics::DrawMode::fill(), rect, color);
-                    //graphics::draw(ctx, &r1, graphics::DrawParam::default());
-                }
-            }
-        }
-    }
-
     pub fn pixel(&mut self, ax: i32, ay: i32) {
         let inside = ax >= 0 && ay >= 0 && ax < WIDTH as i32 && ay < HEIGHT as i32;
         

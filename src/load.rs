@@ -33,7 +33,8 @@ impl Game {
     }
 
     pub fn load_enemy(&mut self, id: u8) -> EnemyData {
-        let bytes = self.enemies_data[id as usize].clone();
+        let true_id = if id == 255 { 42 } else { id };
+        let bytes = self.enemies_data[true_id as usize].clone();
 
         let mut enemy = EnemyData {
             model_id: bytes[0],

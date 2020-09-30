@@ -1,7 +1,4 @@
-use crate::types::{Game, WIDTH, HEIGHT, PLAYER_HEIGHT, G_PLAYER, G_PROTECTION_A1, Vec2, Context};
-use crate::objects::{scenery_data, Graphics};
-
-use wasm_bindgen::prelude::*;
+use crate::types::{Game, WIDTH, G_PLAYER, G_PROTECTION_A1};
 
 impl Game {
     pub fn render(&mut self) {
