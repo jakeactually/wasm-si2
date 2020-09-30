@@ -5,6 +5,11 @@ use crate::objects::{get_static_objects, get_weapons, scenery_data};
 use wasm_bindgen::prelude::*;
 
 #[wasm_bindgen]
+extern {
+    fn alert(s: &str);
+}
+
+#[wasm_bindgen]
 impl Game {
     pub fn new() -> Game {
         Game {
@@ -45,7 +50,9 @@ impl Game {
         }
     }
 
-    pub fn update(&mut self, _ctx: Context) {
+    pub fn update(&mut self, _ctx: &Context) {
+        crate::utils::set_panic_hook();
+
         self.clear();
 
         if self.game_over {
@@ -59,7 +66,7 @@ impl Game {
                 self.game_over = true;
                 return;
             }
-
+            
             self.inverted = self.level_data().inverted_color;
             self.enemies = self.load_level(self.level);
 
@@ -133,8 +140,14 @@ impl Game {
             self.game_over = true;
         }
     }
+}
 
-    pub fn keyboard(&mut self, _ctx: Context) {
+impl Game {
+    pub fn level_data(&self) -> SceneryData {
+        scenery_data[self.level as usize].clone()
+    }
+
+    pub fn keyboard(&mut self, _ctx: &Context) {
         /*let position = &mut self.player.position;
 
         if keyboard::is_key_pressed(_ctx, KeyCode::Right) && position.x < WIDTH as i32 - PLAYER_WIDTH as i32 {
@@ -185,11 +198,5 @@ impl Game {
                 x += rock.size.x;
             }
         }
-    }
-}
-
-impl Game {
-    pub fn level_data(&self) -> SceneryData {
-        scenery_data[self.level as usize].clone()
     }
 }

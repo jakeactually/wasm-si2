@@ -9,6 +9,7 @@ mod render;
 mod text;
 mod types;
 mod util;
+mod utils;
 
 use wasm_bindgen::prelude::*;
 

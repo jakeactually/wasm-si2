@@ -2,12 +2,12 @@ use crate::types::{Game, Enemy, Object, EnemyData, Vec2};
 use crate::util;
 
 impl Game {
-    pub fn load_level<'a>(&mut self, id: u8) -> Vec<Enemy> {
+    pub fn load_level(&mut self, id: u8) -> Vec<Enemy> {
         let bytes = self.levels_data[id as usize].clone();
 
         let amount = bytes[0];
         let mut result = vec![];
-
+        
         for i in 0..amount as u32 {
             let offset = i * 5;
             let view = bytes[(offset as usize + 1)..(offset as usize + 6)].to_vec();
@@ -32,7 +32,7 @@ impl Game {
         result
     }
 
-    pub fn load_enemy<'a>(&mut self, id: u8) -> EnemyData {
+    pub fn load_enemy(&mut self, id: u8) -> EnemyData {
         let bytes = self.enemies_data[id as usize].clone();
 
         let mut enemy = EnemyData {
@@ -63,7 +63,7 @@ impl Game {
         enemy
     }
     
-    pub fn load_object<'a>(&mut self, id: u8) -> Object {
+    pub fn load_object(&mut self, id: u8) -> Object {
         let bytes = self.objects_data[id as usize].clone();
 
         let obj = Object {

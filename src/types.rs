@@ -260,5 +260,14 @@ impl From<u8> for WeaponKind {
 
 #[wasm_bindgen]
 pub struct Context {
-    
+    pub id: u8
+}
+
+#[wasm_bindgen]
+impl Context {
+    pub fn new() -> Context {
+        Context {
+            id: 0
+        }
+    }
 }
