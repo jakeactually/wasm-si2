@@ -1,11 +1,12 @@
-//mod enemy;
+mod enemy;
+mod data;
 mod font;
-//mod game;
+mod game;
 mod game_util;
 mod load;
 mod objects;
-//mod render;
-//mod text;
+mod render;
+mod text;
 mod types;
 mod util;
 

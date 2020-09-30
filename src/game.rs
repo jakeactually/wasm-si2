@@ -4,7 +4,7 @@ use crate::objects::{scenery_data, Graphics};
 use wasm_bindgen::prelude::*;
 
 impl Game {
-    /*pub fn render(&mut self) {
+    pub fn render(&mut self) {
         if self.game_over {
             self.render_text("game", 5, 5);
             self.render_text("over", 35, 5);
@@ -37,5 +37,5 @@ impl Game {
             let bullet = shot.weapon_kind.clone().model(self);
             self.render_object(&bullet, shot.position.x, shot.position.y);
         }
-    }*/
+    }
 }

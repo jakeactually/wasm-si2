@@ -1,6 +1,5 @@
 use crate::objects::Graphics;
 
-use std::collections::HashMap;
 use wasm_bindgen::prelude::*;
 
 pub const WIDTH: u8 = 84;
@@ -37,9 +36,11 @@ pub struct Game {
     #[wasm_bindgen(skip)]
     pub weapons: Vec<Object>,
     #[wasm_bindgen(skip)]
-    pub objects_cache: HashMap<u8, Object>,
+    pub levels_data: [Vec<u8>; 6],
     #[wasm_bindgen(skip)]
-    pub enemies_cache: HashMap<u8, EnemyData>,
+    pub objects_data: [Vec<u8>; 59],
+    #[wasm_bindgen(skip)]
+    pub enemies_data: [Vec<u8>; 43],
 
     #[wasm_bindgen(skip)]
     pub scenery: Vec<Scenery>,
@@ -257,6 +258,7 @@ impl From<u8> for WeaponKind {
     }
 }
 
+#[wasm_bindgen]
 pub struct Context {
     
 }

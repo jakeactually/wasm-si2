@@ -1,15 +1,8 @@
 use crate::types::*;
 use crate::objects::{get_static_objects, get_weapons, scenery_data};
 
-use crate::load;
 //use rand::Rng;
-use std::collections::{HashMap};
 use wasm_bindgen::prelude::*;
-
-#[wasm_bindgen]
-extern {
-    fn alert(s: &str);
-}
 
 #[wasm_bindgen]
 impl Game {
@@ -23,8 +16,9 @@ impl Game {
 
             static_objects: get_static_objects().to_vec(),
             weapons: get_weapons().to_vec(),
-            objects_cache: HashMap::new(),
-            enemies_cache: HashMap::new(),
+            levels_data: crate::data::levels::levels(),
+            objects_data: crate::data::objects::objects(),
+            enemies_data: crate::data::enemies::enemies(),
 
             scenery: vec![],
             enemies: vec![],
@@ -51,14 +45,8 @@ impl Game {
         }
     }
 
-    pub fn update(&mut self) {
-        alert(format!("{:?}", 6).as_str());
-        let promise = load::fetch("/data/enemies/0.dat");
-        let result = wasm_bindgen_futures::JsFuture::from(promise);
-        alert(format!("{:?}", result).as_str());
-        return;
-
-        /*self.clear();
+    pub fn update(&mut self, _ctx: Context) {
+        self.clear();
 
         if self.game_over {
             return;
@@ -143,14 +131,10 @@ impl Game {
 
         if self.player.lives == 0 {
             self.game_over = true;
-        }*/
+        }
     }
 
-    pub fn fetched(&mut self, v: Vec<u8>) {
-        alert("4")
-    }
-
-    pub fn keyboard(&mut self) {
+    pub fn keyboard(&mut self, _ctx: Context) {
         /*let position = &mut self.player.position;
 
         if keyboard::is_key_pressed(_ctx, KeyCode::Right) && position.x < WIDTH as i32 - PLAYER_WIDTH as i32 {
@@ -184,7 +168,7 @@ impl Game {
         }*/
     }
 
-    /*pub fn load_scenery(&mut self) {
+    pub fn load_scenery(&mut self) {
         self.scenery = vec![];
 
         let mut x = 0;
@@ -202,8 +186,10 @@ impl Game {
             }
         }
     }
+}
 
+impl Game {
     pub fn level_data(&self) -> SceneryData {
         scenery_data[self.level as usize].clone()
-    }*/
+    }
 }

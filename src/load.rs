@@ -1,21 +1,9 @@
 use crate::types::{Game, Enemy, Object, EnemyData, Vec2};
 use crate::util;
-use crate::load;
-
-use js_sys::Promise;
-use std::pin::Pin;
-use std::task::Poll;
-use std::task::Context;
-use wasm_bindgen::prelude::*;
-
-#[wasm_bindgen]
-extern {
-    pub fn fetch (s: &str) -> Promise;
-}
 
 impl Game {
-    /*pub fn load_level<'a>(&mut self, id: u8) -> Vec<Enemy> {
-        let bytes = self.fetch(format!("data/levels/{}.dat", id).as_str());
+    pub fn load_level<'a>(&mut self, id: u8) -> Vec<Enemy> {
+        let bytes = self.levels_data[id as usize].clone();
 
         let amount = bytes[0];
         let mut result = vec![];
@@ -45,11 +33,7 @@ impl Game {
     }
 
     pub fn load_enemy<'a>(&mut self, id: u8) -> EnemyData {
-        if self.enemies_cache.contains_key(&id) {
-            return self.enemies_cache.get(&id).unwrap().clone();
-        }
-
-        let bytes = self.fetch(format!("data/enemies/{}.dat", id).as_str());
+        let bytes = self.enemies_data[id as usize].clone();
 
         let mut enemy = EnemyData {
             model_id: bytes[0],
@@ -76,16 +60,11 @@ impl Game {
             }
         }
 
-        self.enemies_cache.insert(id, enemy.clone());
         enemy
     }
     
     pub fn load_object<'a>(&mut self, id: u8) -> Object {
-        if self.objects_cache.contains_key(&id) {
-            return self.objects_cache.get(&id).unwrap().clone();
-        }
-
-        let bytes = self.fetch(format!("data/objects/{}.dat", id).as_str());
+        let bytes = self.objects_data[id as usize].clone();
 
         let obj = Object {
             size: Vec2 {
@@ -95,7 +74,6 @@ impl Game {
             data: util::uncompress(bytes[2..].to_vec())
         };
 
-        self.objects_cache.insert(id, obj.clone());
         obj
-    }*/
+    }
 }
