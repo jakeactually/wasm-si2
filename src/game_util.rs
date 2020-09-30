@@ -156,27 +156,25 @@ impl Game {
     }
 
     pub fn keyboard(&mut self, _ctx: &Context) {
-        /*let position = &mut self.player.position;
+        let position = &mut self.player.position;
 
-        if keyboard::is_key_pressed(_ctx, KeyCode::Right) && position.x < WIDTH as i32 - PLAYER_WIDTH as i32 {
+        if _ctx.key_right && position.x < WIDTH as i32 - PLAYER_WIDTH as i32 {
             position.x += 1;
-        } else if keyboard::is_key_pressed(_ctx, KeyCode::Left) && position.x > 0 {
+        } else if _ctx.key_left && position.x > 0 {
             position.x -= 1;
-        } else if keyboard::is_key_pressed(_ctx, KeyCode::Up) && position.y > self.y_axis.x {
+        } else if _ctx.key_up && position.y > self.y_axis.x {
             position.y -= 1;
-        } else if keyboard::is_key_pressed(_ctx, KeyCode::Down) && position.y < self.y_axis.y {
+        } else if _ctx.key_down && position.y < self.y_axis.y {
             position.y += 1;
         }
         
-        if self.time % 6 == 0 {            
-            use keyboard::is_key_pressed;
-            use KeyCode::*;
+        if self.time % 6 == 0 {
 
-            if is_key_pressed(_ctx, Space) {
+            if _ctx.key_space {
                 let position = Vec2 { x: position.x + 9, y: position.y + 3 };
                 let shot = Shot { position, active: true, weapon_kind: WeaponKind::Standard, duration: 3 };
                 self.shots.push(shot);
-            } else if is_key_pressed(_ctx, LAlt) || is_key_pressed(_ctx, RAlt) {
+            } else if _ctx.key_a {
                 if self.weapon.amount > 0 {
                     self.weapon.amount -= 1;                    
                     let y = if self.weapon.kind == WeaponKind::Wall { 5 } else { position.y + 3 };
@@ -186,7 +184,7 @@ impl Game {
                     self.shots.push(shot);
                 }
             }
-        }*/
+        }
     }
 
     pub fn load_scenery(&mut self) {

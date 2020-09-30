@@ -38,9 +38,9 @@ pub struct Game {
     #[wasm_bindgen(skip)]
     pub levels_data: [Vec<u8>; 6],
     #[wasm_bindgen(skip)]
-    pub objects_data: [Vec<u8>; 59],
+    pub objects_data: [Vec<u8>; 58],
     #[wasm_bindgen(skip)]
-    pub enemies_data: [Vec<u8>; 43],
+    pub enemies_data: [Vec<u8>; 42],
 
     #[wasm_bindgen(skip)]
     pub scenery: Vec<Scenery>,
@@ -260,14 +260,24 @@ impl From<u8> for WeaponKind {
 
 #[wasm_bindgen]
 pub struct Context {
-    pub id: u8
+    pub key_left: bool,
+    pub key_up: bool,
+    pub key_right: bool,
+    pub key_down: bool,
+    pub key_space: bool,
+    pub key_a: bool
 }
 
 #[wasm_bindgen]
 impl Context {
     pub fn new() -> Context {
         Context {
-            id: 0
+            key_left: false,
+            key_up: false,
+            key_right: false,
+            key_down: false,
+            key_space: false,
+            key_a: false
         }
     }
 }
