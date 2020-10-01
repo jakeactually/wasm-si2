@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Hello wasm-pack!</title>
+  </head>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background: black;
+      overflow: hidden;
+    }
+
+    canvas {
+      padding: 20px;
+      border: 5px white solid;
+    }
+  </style>
+  <body>
+    <noscript>This page contains webassembly and javascript content, please enable javascript in your browser.</noscript>
+    <canvas id="canvas"></canvas>
+    <script>
+      function load(url, callback) {
+        fetch(url).then(res => res.blob()).then(async blob => {
+          game.fetched(new Uint8Array(await blob.arrayBuffer()));
+        });
+      }
+    </script>
+    <script src="./bootstrap.js"></script>
+  </body>
+</html>
