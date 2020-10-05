@@ -2,8 +2,6 @@ use crate::types::{Enemy, Game, Vec2, WIDTH, WeaponKind};
 use crate::util;
 use crate::objects::Graphics;
 
-//use rand::Rng;
-
 impl Enemy {
     pub fn tick(mut self, game: &mut Game) -> Enemy {
         let screen_x = game.enemies_x + self.position.x;
@@ -78,8 +76,7 @@ impl Enemy {
         if self.is_bonus() {
             self.delete();
 
-            //let mut rng = rand::thread_rng();
-            let id: u8 = 2;//rng.gen_range(0, 4);
+            let id: u8 = crate::random() % 4;
             let wk: WeaponKind = id.into();
 
             if game.weapon.kind == wk {

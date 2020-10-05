@@ -1,7 +1,6 @@
 use crate::types::*;
 use crate::objects::{get_static_objects, get_weapons, scenery_data};
 
-//use rand::Rng;
 use wasm_bindgen::prelude::*;
 
 #[wasm_bindgen]
@@ -191,12 +190,11 @@ impl Game {
         self.scenery = vec![];
 
         let mut x = 0;
-        //let mut rng = rand::thread_rng();
 
         if self.level > 0 {
             while x < 1600 {
                 let sd = &scenery_data[self.level as usize];
-                let n: u8 = 2;//rng.gen_range(sd.first_object, sd.first_object + sd.objects);
+                let n: u8 = crate::random() % sd.objects + sd.first_object;
                 let rock = self.load_object(n);
                 let y = if self.level_data().upper == 1 { 0 } else { HEIGHT as i32 - rock.size.y };
 

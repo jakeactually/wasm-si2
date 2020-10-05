@@ -19,15 +19,23 @@
       padding: 20px;
       border: 5px white solid;
     }
+
+    a {
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
   </style>
   <body>
+    <a href="https://github.com/jakeactually/wasm-si2">
+      <img loading="lazy" width="149" height="149" src="https://github.blog/wp-content/uploads/2008/12/forkme_left_white_ffffff.png?resize=149%2C149" class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1">
+    </a>
+
     <noscript>This page contains webassembly and javascript content, please enable javascript in your browser.</noscript>
     <canvas id="canvas"></canvas>
     <script>
-      function load(url, callback) {
-        fetch(url).then(res => res.blob()).then(async blob => {
-          game.fetched(new Uint8Array(await blob.arrayBuffer()));
-        });
+      function random() {
+        return Math.floor(Math.random() * 256);
       }
     </script>
     <script src="./bootstrap.js"></script>
