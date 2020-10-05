@@ -2,6 +2,8 @@
 
 Web version of [https://github.com/jakeactually/si2](https://github.com/jakeactually/si2)
 
+[Demo](https://jakeactually.com/si2/)
+
 Compile the rust code with
 
 ```
